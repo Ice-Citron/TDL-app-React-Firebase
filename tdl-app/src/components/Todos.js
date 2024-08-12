@@ -7,8 +7,8 @@ function Todos({ children }) {
 
     return (
         <div className="Todos">
-            <Todo></Todo>
             <Next7Days></Next7Days>
+            <Todo></Todo>
         </div>
     )
 }
