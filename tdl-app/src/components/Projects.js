@@ -25,7 +25,7 @@ function Projects({}) {
                 </div>
                 <div className="btns">
                     {
-                        showMenu && projects.length > 0 &&
+                        showMenu && projects.length > 0 &&              // only show Projects menu, if showMenu is true and there are projects
                         <span className='edit' onClick={ () => setEdit(edit => !edit)}>
                             <PencilFill size="15" color={pencilColor}/>
                         </span>
