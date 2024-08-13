@@ -1,12 +1,21 @@
 import React, {useState} from 'react' // import useState
-
 import Modal from './Modal'
+
+import { Bell, CalendarDay, Clock, Palette, X } from 'react-bootstrap-icons'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'; // import { DatePicker, TimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'; // deprecated library
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+// import DateFnsUtils from '@date-io/date-fns';
 
 
 function AddNewTodo(){
     // showModal = default variable of false. This will be used to show or hide the modal
     // setShowModal = function that will be used to update the state of "showModal"
     const [showModal, setShowModal] = useState(false)
+    const [text, setText] = useState('')                // new, from part 6
+    const [day, setDay] = useState(new Date())
+    const [time, setTime] = useState(new Date())
 
     return ( // begins the JSX statement for rendering the modal's UI
         <div className='AddNewTodo'>                            {/*outer container for "AddNewTodo" component. It uses className, which is for reference during styling in css*/}
@@ -17,13 +26,81 @@ function AddNewTodo(){
             </div>
             <Modal showModal={showModal} setShowModal={setShowModal}> {/*Modal component that will be shown when "showModal" is true. It uses showModal and setShowModal as props
                                                                          The children component below basically won't be shown or executed, until showModal is set to true!*/}
-                <div>
-                    Hello World                             {/*content of the pop-up panel // or "children" in this case*/}  
-                    <button
-                    onClick={() => setShowModal(false)}>
-                        hide
-                    </button>
-                </div>
+                 <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <form>
+                        <div className="text">
+                            <h3>Add new to do!</h3>
+                            <input
+                                type='text'
+                                value={text}
+                                onChange={e => setText(e.target.value)}
+                                placeholder='To do ...'
+                                autoFocus
+                            />
+                        </div>
+                        <div className="remind">
+                            <Bell />
+                            <p>Remind Me!</p>
+                        </div>
+                        <div className="pick-day">
+                            <div className="title">
+                                <CalendarDay />
+                                <p>Choose a day</p>
+                            </div>
+                            {/*
+                            <DatePicker
+                                value={day}
+                                onChange={day => setDay(day)}
+                            />
+                            */}
+                            <DatePicker
+                                label="Controlled picker"
+                                value={day}
+                                onChange={(day) => setDay(day)}
+                            />
+                        </div>
+                        <div className="pick-time">
+                            <div className="title">
+                                <Clock />
+                                <p>Choose time</p>
+                            </div>
+                            {/*
+                            <TimePicker
+                                value={time}
+                                onChange={time => setTime(time)}
+                            />
+                            */}
+                            <TimePicker
+                                label="Controlled picker"
+                                value={time}
+                                onChange={(time) => setTime(time)}
+                            />
+                        </div>
+                        <div className="pick-project">
+                            <div className="title">
+                                <Palette />
+                                <p>Choose a project</p>
+                            </div>
+                            <div className="projects">
+                                <div className="project active">
+                                    personal
+                                </div>
+                                <div className="project">
+                                    work
+                                </div>
+                                <div className="project">
+                                    work
+                                </div>
+                            </div>
+                        </div>
+                        <div className="cancel" onClick={() => setShowModal(false)}>
+                            <X size='40' />
+                        </div>
+                        <div className="confirm">
+                            <button>+ Add to do</button>
+                        </div>
+                    </form>
+                </LocalizationProvider>
             </Modal>
         </div>
     )
