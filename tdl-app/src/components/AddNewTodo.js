@@ -6,7 +6,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'; // import { Dat
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-// import DateFnsUtils from '@date-io/date-fns';
+import dayjs from 'dayjs'; // import dayjs <-- to facilitate defaultTime()                          // DEPRECATED --> import DateFnsUtils from '@date-io/date-fns';
 
 
 function AddNewTodo(){
@@ -14,8 +14,8 @@ function AddNewTodo(){
     // setShowModal = function that will be used to update the state of "showModal"
     const [showModal, setShowModal] = useState(false)
     const [text, setText] = useState('')                // new, from part 6
-    const [day, setDay] = useState(new Date())
-    const [time, setTime] = useState(new Date())
+    const [day, setDay] = React.useState(new dayjs());  // const [day, setDay] = useState(new Date())
+    const [time, setTime] = React.useState(new dayjs()) // const [time, setTime] = useState(new Date())
 
     return ( // begins the JSX statement for rendering the modal's UI
         <div className='AddNewTodo'>                            {/*outer container for "AddNewTodo" component. It uses className, which is for reference during styling in css*/}
@@ -47,16 +47,11 @@ function AddNewTodo(){
                                 <CalendarDay />
                                 <p>Choose a day</p>
                             </div>
-                            {/*
-                            <DatePicker
-                                value={day}
-                                onChange={day => setDay(day)}
-                            />
-                            */}
-                            <DatePicker
-                                label="Controlled picker"
-                                value={day}
-                                onChange={(day) => setDay(day)}
+
+                            <DatePicker 
+                                views={['month', 'day']} 
+                                value={day} 
+                                onChange={(newDay) => setDay(newDay)} 
                             />
                         </div>
                         <div className="pick-time">
@@ -64,16 +59,9 @@ function AddNewTodo(){
                                 <Clock />
                                 <p>Choose time</p>
                             </div>
-                            {/*
-                            <TimePicker
-                                value={time}
-                                onChange={time => setTime(time)}
-                            />
-                            */}
-                            <TimePicker
-                                label="Controlled picker"
-                                value={time}
-                                onChange={(time) => setTime(time)}
+                            <TimePicker 
+                                value={time} 
+                                onChange={(newTime) => setTime(newTime, "HH:mm")} 
                             />
                         </div>
                         <div className="pick-project">
