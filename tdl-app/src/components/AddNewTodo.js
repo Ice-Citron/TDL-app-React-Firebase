@@ -15,7 +15,8 @@ function AddNewTodo(){
                     + New Todo 
                 </button>
             </div>
-            <Modal showModal={showModal} setShowModal={setShowModal}> {/*Modal component that will be shown when "showModal" is true. It uses showModal and setShowModal as props*/}
+            <Modal showModal={showModal} setShowModal={setShowModal}> {/*Modal component that will be shown when "showModal" is true. It uses showModal and setShowModal as props
+                                                                         The children component below basically won't be shown or executed, until showModal is set to true!*/}
                 <div>
                     Hello World                             {/*content of the pop-up panel // or "children" in this case*/}  
                     <button
