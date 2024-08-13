@@ -1,7 +1,7 @@
 import React from "react"
 
 
-function RenameProject({ children }) {
+function RenameProject() {
 
     return (
         <div className="RenameProject">
