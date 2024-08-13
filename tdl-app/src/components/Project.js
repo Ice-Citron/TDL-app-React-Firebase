@@ -14,7 +14,7 @@ function Project({ project, edit }) {
             <div className="btns">
                 {
                     edit ?          // conditional operator, akin to C/C++ ! :)
-                        // <span>s here are 
+                        // <span>s here are used to contain these icons, which will be made to buttons soon
                         <div className="edit-delete">
                             <span className="edit">
                                 <Pencil size="13" />
@@ -24,9 +24,9 @@ function Project({ project, edit }) {
                             </span>
                         </div>
                     : 
-                        project.numOfTodos === 0 ?
+                        project.numOfTodos === 0 ? // don't display the number of ToDos if there are none
                             ""
-                        :
+                        :                          // else, display the number of ToDos inside a <div>
                             <div className="total-todos">
                                 {project.numOfTodos}
                             </div>

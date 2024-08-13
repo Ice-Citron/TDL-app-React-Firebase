@@ -5,6 +5,7 @@ import { Plus } from "react-bootstrap-icons"
 function AddNewProject() {
 
     return (
+        // AddNewProject component is a button with a plus icon
         <div className="AddNewProject">
             <div className="add-button">
                 <span>

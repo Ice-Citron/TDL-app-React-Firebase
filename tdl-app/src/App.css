@@ -286,34 +286,35 @@
 .Projects .items {
     padding: 0.5rem;
 }
-/* Project */
+
+/* Part 8 -- Projects, Project */
 .Project {
     position: relative;
-    display: flex;
-    align-items: center;
+    display: flex;              /* Things are alligned in a row format for each task, because by default, flex container alligns its children (flex items) in a row */
+    align-items: center;        /* Aligns each children items vertically at center */
     padding: 0.25rem;
     margin: 5px;
     font-size: 1rem;
 }
 .Project .name {
-    cursor: pointer;
-    word-break: break-all;
+    cursor: pointer;            /* Cursor changes to handshape when hovers over task names */
+    word-break: break-all;      /* Breaks words when they reach the end of the container */
 }
 .Project .btns {
-    display: flex;
-    align-items: center;
+    display: flex;              
+    align-items: center;        /* Aligns items vertically at center */
 }
 .Project .btns .total-todos {
-    position: absolute;
-    right: 0;
+    position: absolute;         /* Positioning the total-todos span to the right of the project name */
+    right: 0;                   /* right: 0 pins them to the right edge of the .Project container */
     background: #ebebeb;
     width: 25px;
     height: 25px;
     font-size: 0.9rem;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
+    align-items: center;         /* Aligns items vertically at center */
+    justify-content: center;     /* Aligns items horizontally at center */
+    border-radius: 50%;          /* Makes the total-todos span a circle */
 }
 .Project .btns .edit-delete {
     position: absolute;
@@ -328,11 +329,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 300ms ease-in-out;
+    transition: background 300ms ease-in-out;    /* Refer to notes for how transition property works */    
 }
-.Project .btns .edit-delete span.edit:hover {
+.Project .btns .edit-delete span.edit:hover {    /* Hover effect for edit button, in this case, changes colour to green for "PENCIL" icon */
     background: #acffac;
 }
-.Project .btns .edit-delete span.delete:hover {
+.Project .btns .edit-delete span.delete:hover {  /* Hover effect for edit button, in this case, changes colour to red for "XCircle" icon */
     background: #ffacac;
 }
