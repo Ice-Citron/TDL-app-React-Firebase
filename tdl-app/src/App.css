@@ -418,3 +418,58 @@
 .Todos .todos {
     overflow-y: auto;        /* Enable vertical scrolling if content exceeds the height of this element */
 }
+
+
+/* PART 11 --> Todo */
+.Todo {
+    padding: 0.5rem 1rem;       /*  This adds padding around each Todo item, 0.5rem top and bottom, 1rem left and right. */
+}
+.Todo .todo-container {
+    display: flex;
+    align-items: center;        /* This sets the container to use flexbox layout and aligns items vertically in the center. */
+}
+.Todo .todo-container span {
+    cursor: pointer;            /* This changes the cursor to a pointer when hovering over the span. */
+}
+.Todo .todo-container .text {
+/* 
+    This sets the text container to use flexbox layout and aligns items vertically in the center. 
+    It also sets the container to grow and shrink as needed, and to occupy all available space. 
+    It adds 10 pixels of margin on the left and right sides, but 0 pixels of margin for the text for top and bottom (vertical sides)
+    It changes the cursor to a pointer when hovering over the container. 
+*/
+    position: relative;
+    flex: 1;
+    margin: 0 10px;
+    cursor: pointer;
+}
+.Todo .todo-container .text span {
+    font-size: 0.8rem;
+    color: #bebebe;
+}
+.Todo .todo-container .text .line {
+/*
+1. This sets the line to be 1 pixel tall, 
+2. with a light gray background color.
+3. Positions the line relative to its nearest positioned ancestor (in this case, the .text <div> container).
+4. Places the line 25% from the top of the container. (makes more sense when you look at the dashed line itself, because it needs to account for the "09:00 AM - work" text below the main text component)
+5. initially the line has no width, making it invisible
+6. This creates a smooth animation when the width changes. It will take 250 milliseconds (1/4 second) and use an ease-in-out timing function for a natural-looking animation.
+*/
+    height: 1px;
+    background: #bebebe;
+    position: absolute;
+    top: 25%;
+    width: 0;
+    transition: width 250ms ease-in-out;
+}
+ .Todo .todo-container .text .line-through {
+    width: 100%; /* This sets the width of the line to 100%, making it visible. (when the className also contains "line-through" as well instead) */
+}
+.Todo .todo-container .add-to-next-day {
+/*
+- This adds 10 pixels of space to the right of the "add to next day" button.
+- This extra space helps separate the button from the next element (likely the delete button), improving the visual layout and making each element distinct and clickable.
+*/
+    margin-right: 10px;
+}
