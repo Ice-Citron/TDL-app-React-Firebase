@@ -9,3 +9,4 @@
 ---
 16/8/2024
 - Firebase - Positioning UI Components Relative to Screen Size = https://claude.ai/chat/c0b5765f-3767-416c-97bf-dc16009485ed
+- Firebase - Referencing Component Dimensions in CSS = https://claude.ai/chat/55d4fe81-0f78-45ee-ad47-6dc77b5a8cc3

@@ -107,14 +107,16 @@
 
 /* Part 6 - AddNewTodo form */ /* <-- refer to notes .IPYNB of whats going on*/
                                /* 1 rem = 1 root elements // or 1x root font size */
-.AddNewTodo form {
+
+    /* PART 11, THIS HAS BEEN MODIFIED TO ACCOMDATE FOR CODE REUSE */
+.TodoForm  {
     padding: 1rem 1rem calc(1rem + 40px) 1rem;
     width: 500px;
     background: white;
     border-radius: 4px;
 }
 
-.AddNewTodo form .text input {
+.TodoForm .text input {
     padding: 1rem;
     width: 100%;
     margin-bottom: 0.5rem;
@@ -122,46 +124,46 @@
     font-size: 1.2rem;
 }
 
-.AddNewTodo form .text input:focus {
+.TodoForm .text input:focus {
     outline: none;
     border-bottom: 1px solid #0080ff;
 }
 
-.AddNewTodo form .remind {
+.TodoForm .remind {
     display: flex;
     align-items: center;
     padding: 0.5rem;
 }
 
-.AddNewTodo form p {
+.TodoForm p {
     margin-left: 10px;
 }
 
-.AddNewTodo form .title {
+.TodoForm .title {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
 }
 
-.AddNewTodo form .pick-day {
+.TodoForm .pick-day {
     padding: 1.5rem 1.5rem 0 1.5rem;
 }
   
-.AddNewTodo form .pick-time {
+.TodoForm .pick-time {
     padding: 1.5rem;
 }
   
-.AddNewTodo form .pick-project {
+.TodoForm .pick-project {
     padding: 0.5rem;
 }
 
-.AddNewTodo form .pick-project .projects {
+.TodoForm .pick-project .projects {
     display: flex;
     flex-wrap: wrap;
     padding: 1rem 1rem 0 1rem;
 }
   
-.AddNewTodo form .pick-project .projects .project {
+.TodoForm .pick-project .projects .project {
     border: 1px solid #0080ff;
     border-radius: 5px;
     padding: 5px;
@@ -169,26 +171,26 @@
     cursor: pointer;
 }
   
-.AddNewTodo form .pick-project .projects .active {
+.TodoForm .pick-project .projects .active {
     background: #0080ff;
     color: white;
 }
   
-.AddNewTodo form .cancel {
+.TodoForm .cancel {
     position: absolute;
     top: 0;
     right: 5px;
     cursor: pointer;
 }
   
-.AddNewTodo form .confirm {
+.TodoForm .confirm {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
 }
   
-.AddNewTodo form .confirm button {
+.TodoForm .confirm button {
     width: 100%;
     height: 40px;
     background: #0080ff;
@@ -390,15 +392,21 @@
 
 /* PART 10 --> Todos */ 
         /* I'm changing to using VW and VH instead of using pixel which is too screen specific */
-.Todos {
-    width: 35vw;
-    min-width: 300px;  /* Ensure a minimum width for smaller screens */
-    max-width: 600px;  /* Ensure element is never wider than 600px */
+:root {
+    --todos-width: clamp(300px, 35vw, 600px); /* This sets the width of the Todos container to be a minimum of 300 pixels, a maximum of 600 pixels, and 35% of the viewport width. */
+}
 
-    height: 80vh;    /* 80% of the vertical height of the screen */
+.Todos {
+    width: var(--todos-width); /* This sets the width of the Todos container to the value of the --todos-width variable. */
+
+    /* width: 35vw; */
+    /* min-width: 300px; */  /* Ensure a minimum width for smaller screens */
+    /* max-width: 600px; */  /* Ensure element is never wider than 600px */
+
+    height: 80vh;      /* 80% of the vertical height of the screen */
     background-color: white;
   
-    position: absolute; /* Position the element absolutely within its nearest positioned ancestor */
+    position: fixed; /* Position the element absolutely within its nearest positioned ancestor */
     bottom: 10vh;       /* 40px by default*/ /* Positioning the Todos container XX% vertical height from the bottom of the screen */
     left: 20vw;         /* 40px by default*/
   
@@ -463,7 +471,7 @@
     width: 0;
     transition: width 250ms ease-in-out;
 }
- .Todo .todo-container .text .line-through {
+.Todo .todo-container .text .line-through {
     width: 100%; /* This sets the width of the line to 100%, making it visible. (when the className also contains "line-through" as well instead) */
 }
 .Todo .todo-container .add-to-next-day {
@@ -472,4 +480,36 @@
 - This extra space helps separate the button from the next element (likely the delete button), improving the visual layout and making each element distinct and clickable.
 */
     margin-right: 10px;
+}
+
+
+/* PART 12 --> EditTodo <-- FOR THIS EP, lots of previous component from ".addToDo form has been modified to link this instead"*/
+.EditTodo {
+    width: 35vw;
+    min-width: 300px;  /* Ensure a minimum width for smaller screens */
+    max-width: 600px;  /* Ensure element is never wider than 600px */
+
+    height: 80vh;      /* 80% of the vertical height of the screen */
+    background-color: white;
+
+    position: fixed;    /* Fixed position <-- means that the element is positioned relative to the viewport (browser window) instead of through normal document flow (static */
+    bottom: 10vh;       /* 40px by default*/ /* Positioning the Todos container XX% vertical height from the bottom of the screen */
+    left: calc(var(--todos-width) + 20vw + 2vw); /* calc(40px + 450px + 40px) by default  */
+  
+    border-radius: 4px; /* round corners */
+    opacity: 0.9;
+}
+.EditTodo .header {
+    margin: 1rem 0.5rem;    /* margin of .header text from top and sideways */
+  
+    font-size: 1.2rem;
+    font-weight: bold;
+  
+    /* 
+    Bottom border
+    1. Adds a small space below the text
+    2. Adds a light gray line below the header
+    */
+    padding-bottom: 2px;
+    border-bottom: 1px solid #eeeeee;
 }

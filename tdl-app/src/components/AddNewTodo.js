@@ -1,11 +1,7 @@
 import React, {useState} from 'react' // import useState
 import Modal from './Modal'
+import TodoForm from './TodoForm';
 
-import { Bell, CalendarDay, Clock, Palette, X } from 'react-bootstrap-icons'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'; // import { DatePicker, TimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'; // deprecated library
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import dayjs from 'dayjs'; // import dayjs <-- to facilitate defaultTime()                          // DEPRECATED --> import DateFnsUtils from '@date-io/date-fns';
 
 
@@ -17,6 +13,18 @@ function AddNewTodo(){
     const [day, setDay] = React.useState(new dayjs());  // const [day, setDay] = useState(new Date())
     const [time, setTime] = React.useState(new dayjs()) // const [time, setTime] = useState(new Date())
 
+
+    const projects = [
+        { id : 1, name : "personal", numOfTodos : 0 },
+        { id : 2, name : "work", numOfTodos : 1 },
+        { id : 3, name : "other", numOfTodos : 2 }
+    ]
+
+    function handleSubmit(e) {
+
+    }
+
+
     return ( // begins the JSX statement for rendering the modal's UI
         <div className='AddNewTodo'>                            {/*outer container for "AddNewTodo" component. It uses className, which is for reference during styling in css*/}
             <div className="btn">                               {/*inner container for button. It uses className, which is for reference during styling in css*/}
@@ -26,69 +34,19 @@ function AddNewTodo(){
             </div>
             <Modal showModal={showModal} setShowModal={setShowModal}> {/*Modal component that will be shown when "showModal" is true. It uses showModal and setShowModal as props
                                                                          The children component below basically won't be shown or executed, until showModal is set to true!*/}
-                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <form>
-                        <div className="text">
-                            <h3>Add new to do!</h3>
-                            <input
-                                type='text'
-                                value={text}
-                                onChange={e => setText(e.target.value)}
-                                placeholder='To do ...'
-                                autoFocus
-                            />
-                        </div>
-                        <div className="remind">
-                            <Bell />
-                            <p>Remind Me!</p>
-                        </div>
-                        <div className="pick-day">
-                            <div className="title">
-                                <CalendarDay />
-                                <p>Choose a day</p>
-                            </div>
-
-                            <DatePicker 
-                                views={['month', 'day']} 
-                                value={day} 
-                                onChange={(newDay) => setDay(newDay)} 
-                            />
-                        </div>
-                        <div className="pick-time">
-                            <div className="title">
-                                <Clock />
-                                <p>Choose time</p>
-                            </div>
-                            <TimePicker 
-                                value={time} 
-                                onChange={(newTime) => setTime(newTime, "HH:mm")} 
-                            />
-                        </div>
-                        <div className="pick-project">
-                            <div className="title">
-                                <Palette />
-                                <p>Choose a project</p>
-                            </div>
-                            <div className="projects">
-                                <div className="project active">
-                                    personal
-                                </div>
-                                <div className="project">
-                                    work
-                                </div>
-                                <div className="project">
-                                    work
-                                </div>
-                            </div>
-                        </div>
-                        <div className="cancel" onClick={() => setShowModal(false)}>
-                            <X size='40' />
-                        </div>
-                        <div className="confirm">
-                            <button>+ Add to do</button>
-                        </div>
-                    </form>
-                </LocalizationProvider>
+                <TodoForm
+                    handleSubmit={handleSubmit}
+                    heading='Add new to do!'
+                    text={text}
+                    setText={setText}
+                    day={day}
+                    setDay={setDay}
+                    time={time}
+                    setTime={setTime}
+                    projects={projects}
+                    showButtons={true}
+                    setShowModal={setShowModal}
+                />
             </Modal>
         </div>
     )
