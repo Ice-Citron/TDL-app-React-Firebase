@@ -17,7 +17,7 @@
 
 /* Sidebar */
 .Sidebar {
-    width: 300px;
+    width: 20vw;
     min-width: 200px;
     height: 100%;
 }
@@ -345,25 +345,25 @@
     margin-right: 5px;
 }
 /* ProjectForm */
-  .ProjectForm {
+.ProjectForm {
     background-color: white;
     padding: 1rem;
     border-radius: 4px;
     position: relative;
     padding-bottom: 40px;
-  }
-  .ProjectForm input {
+}
+.ProjectForm input {
     width: 100%;
     height: 40px;
     margin: 15px 0;
     border: none;
     font-size: 1.2rem;
-  }
-  .ProjectForm input:focus {
+}
+.ProjectForm input:focus {
     outline: none;
     border-bottom: 1px solid #0080ff;
-  }
-  .ProjectForm button {
+}
+.ProjectForm button {
     position: absolute;
     bottom: 0;
     height: 40px;
@@ -374,15 +374,47 @@
     font-weight: bold;
     cursor: pointer;
     transition: filter 300ms ease-in-out;
-  }
-  .ProjectForm button.cancel {
+}
+.ProjectForm button.cancel {
     left: 0;
     background-color: #bebebe;
-  }
-  .ProjectForm button.confirm {
+}
+.ProjectForm button.confirm {
     right: 0;
     background-color: #0080ff;
-  }
-  .ProjectForm button:hover {
+}
+.ProjectForm button:hover {
     filter: brightness(1.1);   /* As the mouse hovers over the button, the brightness of the button increases by 10% */
-  }
+}
+
+
+/* PART 10 --> Todos */ 
+        /* I'm changing to using VW and VH instead of using pixel which is too screen specific */
+.Todos {
+    width: 35vw;
+    min-width: 300px;  /* Ensure a minimum width for smaller screens */
+    max-width: 600px;  /* Ensure element is never wider than 600px */
+
+    height: 80vh;    /* 80% of the vertical height of the screen */
+    background-color: white;
+  
+    position: absolute; /* Position the element absolutely within its nearest positioned ancestor */
+    bottom: 10vh;       /* 40px by default*/ /* Positioning the Todos container XX% vertical height from the bottom of the screen */
+    left: 20vw;         /* 40px by default*/
+  
+    border-radius: 4px;
+    opacity: 0.9;
+  
+    padding: 0 0.5rem 0.5rem 0.5rem; /* Padding of 0.5rem on all sides except bottom, padding is applied inside the element. Between content and border. */
+}
+.Todos .selected-project {
+    margin: 1rem 0;
+    text-transform: capitalize;    /* Capitalize the first letter of each word */
+    font-size: 1.2rem;             /* Set font size to 1.2 times the root element's font size */
+    font-weight: bold;             /* Make the font bold */
+    padding-bottom: 2px;           /* Add 2 pixels of padding to the bottom */
+    border-bottom: 1px solid #eeeeee;       /* Add a light gray 1-pixel solid line at the bottom */
+}
+.Todos .todos {
+    overflow-y: auto;        /* Enable vertical scrolling if content exceeds the height of this element */
+}
