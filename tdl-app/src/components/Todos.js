@@ -6,33 +6,9 @@ import { TodoContext } from "../context"
 
 
 function Todos(){
-    const { selectedProject } = useContext(TodoContext) // has been substituted, with useContext instead. Global data      // seems to be a value which determines what type of "todos" in a specific project to display 
-                                                        // if neccesary, refer to what context is from NOTES. It's a way to pass data through the component tree without having to pass props down manually at every level.
-                                                        // reduces cluttering, etc.
-
-    const todos = [ // for now we are just using a const array, later we will use firebase
-        // array of todo objects here, each todo object has properties like unique id, text, time, date, day, checked, color, projec. Hard-coded for now
-        {
-            id : 'd54sd4',
-            text : "Go for a run",
-            time : "10:00 AM",
-            date : "16/08/2024",
-            day : "6",
-            checked : false,
-            color : '#e81a1a',
-            project : 'personal'
-        },
-        {
-            id : 'd54fdf',
-            text : "Meeting",
-            time : "09:00 AM",
-            date : "18/08/2024",
-            day : "1",
-            checked : true,
-            color : '#00ff00',
-            project : 'work'
-        }
-    ]
+    const { todos, selectedProject } = useContext(TodoContext) // has been substituted, with useContext instead. Global data      // seems to be a value which determines what type of "todos" in a specific project to display 
+                                                               // if neccesary, refer to what context is from NOTES. It's a way to pass data through the component tree without having to pass props down manually at every level.
+                                                               // reduces cluttering, etc.
 
     return (
         <div className='Todos'> {/* this is the main container for the todos, or the basic structure. In here, the selected-project and list of todo will then be displayed. */}

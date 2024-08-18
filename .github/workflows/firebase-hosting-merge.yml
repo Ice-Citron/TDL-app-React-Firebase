@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: cd tdl-app && npm ci && npm run build
+      - run: cd tdl-app && npm ci && npm run build # we need to "cd" into our app's subdirectory first, before running any commands
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TDL_APP_D2216 }}
           channelId: live
           projectId: tdl-app-d2216
-          entryPoint: "./tdl-app"
+          entryPoint: "./tdl-app" # needed because our app is in a subdirectory--"./tdl-app"

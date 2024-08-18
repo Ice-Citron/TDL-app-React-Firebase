@@ -7,4 +7,5 @@ firebase login
 firebase init
 
 npm run build
+    npm install --save-dev cross-env        // for cross-env
 firebase deploy

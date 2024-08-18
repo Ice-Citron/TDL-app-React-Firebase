@@ -1,20 +1,18 @@
-import React, {useState} from "react"
+import React, {useState, useContext} from "react"
 import { CaretUp, Palette, PencilFill } from 'react-bootstrap-icons'
 
 import AddNewProject from "./AddNewProject"
 import Project from "./Project"
+import { TodoContext } from "../context"
 
 
-function Projects({}) {
+function Projects() {
     const [showMenu, setShowMenu] = useState(true);
     const [edit, setEdit] = useState(false)                     // set true when pencil button is clicked
     const pencilColor = edit ? "#1EC94C" : "#000000"            // colour of pencil button changes from green to black if button is clicked
 
-    const projects = [
-        { id : 1, name : "personal", numOfTodos : 0 },  // pre-defined array of task, their IDs, names and number of ToDos
-        { id : 2, name : "work", numOfTodos : 1 },
-        { id : 3, name : "other", numOfTodos : 2 }
-    ]
+    // CONTEXT
+    const { projects } = useContext(TodoContext)                // useContext() is a hook that allows you to use the values of the context in your components
 
     return (
         <div className='Projects'>
