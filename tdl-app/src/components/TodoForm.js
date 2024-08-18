@@ -16,6 +16,7 @@ function TodoForm({
         text, setText,
         day, setDay,
         time, setTime,
+        todoProject, setTodoProject,
         projects,
         showButtons = false,
         setShowModal = false }) {
@@ -68,11 +69,21 @@ function TodoForm({
                     </div>
                     <div className="projects">
                         {
-                            projects.map( project => 
-                                <div className="project" key={project.id}>
-                                    {project.name}
-                                </div>    
-                            )
+                            projects.length > 0 ? // render below is at least 1 project exists
+                                projects.map( project => 
+                                    <div
+                                        className={`project ${todoProject === project.name ? "active" : ""}`} // if the project is active, then set the class to active, as in "project active", which means that
+                                                                                                              // in CSS, the styling for .project and .active will apply to this
+                                        onClick={() => setTodoProject(project.name)} // when a project (the button which is names this project) is clicked, set the project name to the todoProject
+                                        key={project.id} // unique key id, this is default on ReactJS, each component has a key, to prevent re-rendering excessively when re-rendering is triggered
+                                    >
+                                        {project.name}
+                                    </div>    
+                                )
+                            : // else if not project exists, print the message below in red
+                                <div style={{color:'#ff0000'}}>
+                                    Please add a project before proceeding
+                                </div>
                         }
                     </div>
                 </div>

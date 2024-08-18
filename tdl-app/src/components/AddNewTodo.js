@@ -1,18 +1,23 @@
-import React, {useState} from 'react' // import useState
+import React, {useContext, useEffect, useState} from 'react' // import useState
 import Modal from './Modal'
 import TodoForm from './TodoForm';
+import { TodoContext } from '../context/index'
 
 import dayjs from 'dayjs'; // import dayjs <-- to facilitate defaultTime()                          // DEPRECATED --> import DateFnsUtils from '@date-io/date-fns';
 
 
 function AddNewTodo(){
-    // showModal = default variable of false. This will be used to show or hide the modal
-    // setShowModal = function that will be used to update the state of "showModal"
+    // CONTEXT
+    const { selectedProject } = useContext(TodoContext)
+
+    // STATE
+            // showModal = default variable of false. This will be used to show or hide the modal
+            // setShowModal = function that will be used to update the state of "showModal"
     const [showModal, setShowModal] = useState(false)
     const [text, setText] = useState('')                // new, from part 6
     const [day, setDay] = React.useState(new dayjs());  // const [day, setDay] = useState(new Date())
     const [time, setTime] = React.useState(new dayjs()) // const [time, setTime] = useState(new Date())
-
+    const [todoProject, setTodoProject] = useState(selectedProject)  // from part 14, NEW, for useEffect hook   
 
     const projects = [
         { id : 1, name : "personal", numOfTodos : 0 },
@@ -23,6 +28,10 @@ function AddNewTodo(){
     function handleSubmit(e) {
 
     }
+
+    useEffect( () => {
+        setTodoProject(selectedProject)
+    }, [selectedProject])
 
 
     return ( // begins the JSX statement for rendering the modal's UI
@@ -43,6 +52,8 @@ function AddNewTodo(){
                     setDay={setDay}
                     time={time}
                     setTime={setTime}
+                    todoProject={todoProject}
+                    setTodoProject={setTodoProject}
                     projects={projects}
                     showButtons={true}
                     setShowModal={setShowModal}
