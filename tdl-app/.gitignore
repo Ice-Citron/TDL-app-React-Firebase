@@ -9,7 +9,7 @@
 /coverage
 
 # production
-/build
+# /build <-- disabled temporarily to enable build and deploy to run? not sure if node_modules needed
 
 # misc
 .DS_Store
