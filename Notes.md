@@ -10,3 +10,7 @@
 16/8/2024
 - Firebase - Positioning UI Components Relative to Screen Size = https://claude.ai/chat/c0b5765f-3767-416c-97bf-dc16009485ed
 - Firebase - Referencing Component Dimensions in CSS = https://claude.ai/chat/55d4fe81-0f78-45ee-ad47-6dc77b5a8cc3
+---
+18/8/2024
+- Firebase - Understanding .github Directory = https://chatgpt.com/c/4ae50207-dbce-4e7a-8747-0bddf9003a57
+- Firebase - Hosting a React App on Firebase = https://claude.ai/chat/c4803a85-ed81-4292-88d9-337663b48ab7

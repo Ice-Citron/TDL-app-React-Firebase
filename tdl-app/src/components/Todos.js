@@ -1,11 +1,12 @@
-import React from "react"
+import React, { useContext } from "react"
 
 import Todo from "./Todo"
 import Next7Days from "./Next7Days"
+import { TodoContext } from "../context"
 
 
 function Todos(){
-    const selectedProject = "today" // seems to be a value which determines what type of "todos" in a specific project to display 
+    const { selectedProject } = useContext(TodoContext) // has been substituted, with useContext instead       // seems to be a value which determines what type of "todos" in a specific project to display 
 
     const todos = [ // for now we are just using a const array, later we will use firebase
         // array of todo objects here, each todo object has properties like unique id, text, time, date, day, checked, color, projec. Hard-coded for now
