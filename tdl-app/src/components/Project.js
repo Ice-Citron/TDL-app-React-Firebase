@@ -1,16 +1,22 @@
-import { React, useState} from "react"
+import { React, useState, useContext } from "react"
 import { Pencil, XCircle } from 'react-bootstrap-icons'
 
 import Modal from './Modal'
 import RenameProject from "./RenameProject"
+import { TodoContext } from "../context"
 
 
 function Project({ project, edit }) {
+    // CONTEXT
+    const { setSelectedProject } = useContext(TodoContext) // now we are using the context to set the selected project, which acts as global data. Which reduces the need to pass props down the component tree,
+                                                           // making our code much cleaner, etc.
+
+    // STATE
     const [showModal, setShowModal] = useState(false)
 
     return (
         <div className='Project'>
-            <div className="name">
+            <div className="name" onClick={ () => setSelectedProject(project.name) }>
                 {project.name}
             </div>
             <div className="btns">

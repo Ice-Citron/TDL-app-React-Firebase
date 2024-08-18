@@ -10,8 +10,8 @@ function TodoContextProvider({children}){
         <TodoContext.Provider
             value={
                 {
-                    selectedProject,
-                    setSelectedProject
+                    selectedProject: selectedProject,
+                    setSelectedProject: setSelectedProject
                 }
             }
         >

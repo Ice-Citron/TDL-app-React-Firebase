@@ -6,7 +6,9 @@ import { TodoContext } from "../context"
 
 
 function Todos(){
-    const { selectedProject } = useContext(TodoContext) // has been substituted, with useContext instead       // seems to be a value which determines what type of "todos" in a specific project to display 
+    const { selectedProject } = useContext(TodoContext) // has been substituted, with useContext instead. Global data      // seems to be a value which determines what type of "todos" in a specific project to display 
+                                                        // if neccesary, refer to what context is from NOTES. It's a way to pass data through the component tree without having to pass props down manually at every level.
+                                                        // reduces cluttering, etc.
 
     const todos = [ // for now we are just using a const array, later we will use firebase
         // array of todo objects here, each todo object has properties like unique id, text, time, date, day, checked, color, projec. Hard-coded for now

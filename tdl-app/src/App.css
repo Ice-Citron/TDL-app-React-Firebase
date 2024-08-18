@@ -29,6 +29,7 @@
     background-image: url('./images/Everest.webp');
     background-repeat: no-repeat;
     background-size: cover;
+    position: relative;
 }
 
 /* User */
@@ -65,6 +66,7 @@
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.8);
+    z-index: 99;
 }
   
 .Modal .container {
@@ -406,7 +408,7 @@
     height: 80vh;      /* 80% of the vertical height of the screen */
     background-color: white;
   
-    position: fixed; /* Position the element absolutely within its nearest positioned ancestor */
+    position: fixed;    /* CHANGED TO FIXED Position the element absolutely within its nearest positioned ancestor */
     bottom: 10vh;       /* 40px by default*/ /* Positioning the Todos container XX% vertical height from the bottom of the screen */
     left: 20vw;         /* 40px by default*/
   
