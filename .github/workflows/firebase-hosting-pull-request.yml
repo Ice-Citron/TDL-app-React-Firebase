@@ -19,3 +19,8 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TDL_APP_D2216 }}
           projectId: tdl-app-d2216
+          entryPoint: "./tdl-app"
+          
+          
+
+
