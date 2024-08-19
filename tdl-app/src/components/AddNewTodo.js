@@ -1,32 +1,50 @@
 import React, {useContext, useEffect, useState} from 'react' // import useState
+
 import Modal from './Modal'
 import TodoForm from './TodoForm';
-import { TodoContext } from '../context/index'
+import { TodoContext } from '../context' // no need to specify to import from "index.js" file, because Node.js will automatically look for it by default
+import { calendarItems} from "../constants"
 
+import fireDB from "../firebase"
+import { collection, addDoc } from "firebase/firestore"
+import randomcolor from "randomcolor"
 import dayjs from 'dayjs'; // import dayjs <-- to facilitate defaultTime()                          // DEPRECATED --> import DateFnsUtils from '@date-io/date-fns';
 
 
 function AddNewTodo(){
     // CONTEXT
-    const { selectedProject } = useContext(TodoContext)
+    const { projects, selectedProject } = useContext(TodoContext);
 
     // STATE
             // showModal = default variable of false. This will be used to show or hide the modal
             // setShowModal = function that will be used to update the state of "showModal"
-    const [showModal, setShowModal] = useState(false)
-    const [text, setText] = useState('')                // new, from part 6
-    const [day, setDay] = React.useState(new dayjs());  // const [day, setDay] = useState(new Date())
-    const [time, setTime] = React.useState(new dayjs()) // const [time, setTime] = useState(new Date())
-    const [todoProject, setTodoProject] = useState(selectedProject)  // from part 14, NEW, for useEffect hook   
-
-    const projects = [
-        { id : 1, name : "personal", numOfTodos : 0 },
-        { id : 2, name : "work", numOfTodos : 1 },
-        { id : 3, name : "other", numOfTodos : 2 }
-    ]
+    const [showModal, setShowModal] = useState(false);
+    const [text, setText] = useState('');                                   // new, from part 6
+    const [day, setDay] = React.useState(new dayjs().startOf('day'));       // const [day, setDay] = useState(new Date())
+    const [time, setTime] = React.useState(new dayjs().startOf('minute'));  // const [time, setTime] = useState(new Date())
+    const [todoProject, setTodoProject] = useState(selectedProject);        // from part 14, NEW, for useEffect hook   
 
     function handleSubmit(e) {
+        e.preventDefault() // need to check what this is with claude
 
+        if( text && !calendarItems.includes(todoProject)) {
+            const todosRef = collection(fireDB, 'todos');
+
+            addDoc(todosRef, {
+                text : text,
+                date : dayjs(day).format('MM/DD/YYYY'),
+                day : dayjs(day).format('d'),
+                time : dayjs(time).format('hh:mm A'),
+                checked : false,
+                color : randomcolor(),
+                projectName : todoProject
+            })
+
+            setShowModal(false)
+            setText('')
+            setDay(new Date())
+            setTime(new Date())
+        }
     }
 
     useEffect( () => {

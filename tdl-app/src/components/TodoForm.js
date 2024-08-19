@@ -60,7 +60,7 @@ function TodoForm({
                     </div>
                     <TimePicker 
                         value={time} 
-                        onChange={(newTime) => setTime(newTime, "HH:mm")} 
+                        onChange={(newTime) => setTime(newTime, "HH:mm A")} // A is needed, to include AM or PM
                     />
                 </div>
                 <div className="pick-project">
