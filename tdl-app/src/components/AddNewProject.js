@@ -13,20 +13,18 @@ function AddNewProject() {
     const [projectName, setProjectName] = useState('');         // https://dev.to/johnstonlogan/react-hooks-barney-style-1hk7
                                                                 // fairly minor difference. but basically just class component vs functional component. Since we are only using functional components, we use useState instead 
                                                                 // of setState
-    async function handleSubmit(e){
+    async function handleSubmit(e){                 // async function to handle the submission of the form    <-- asynchronous, doesn't need to sync up, increases speed
         e.preventDefault();
-        // CHANGED, to accommodate for Firebase +9 version
+        // CHANGED, section below is changed to accommodate for Firebase +9 version
         if (projectName) {
             const projectsRef = collection(fireDB, 'projects');
-            const q = query(projectsRef, where('name', '==', projectName));
-            
+            const q = query(projectsRef, where('name', '==', projectName)); // "q" is a query constructed to find documents in the "projects" collection, where the "name" field
+                                                                            // equals "projectName"
             try {
-                const querySnapshot = await getDocs(q);
-              
-                if (querySnapshot.empty) {
-                    await addDoc(projectsRef, {
-                        name: projectName
-                    });
+                const querySnapshot = await getDocs(q);   // asynchronously retrieves the documents based on query "q". "getDocs()" returns a querySnapshot, and then "await" allows the code to pause until 
+                                                          // this Firestore operation is complete
+                if (querySnapshot.empty) {                                  // this means if no documents matches the query, or that if the project doesnt exist, then add the project
+                    await addDoc(projectsRef, { name: projectName });       // "addDoc()" adds a new document to the "projects" collection, with the field "name" set to "projectName"
                     console.log('Project added successfully');
                 } 
                 else {
