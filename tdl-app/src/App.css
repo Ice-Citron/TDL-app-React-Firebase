@@ -515,3 +515,17 @@
     padding-bottom: 2px;
     border-bottom: 1px solid #eeeeee;
 }
+
+
+/* PART 18 --> Next7Days Components */
+.Next7Days .day {
+    margin: 5px;
+    display: flex;
+}
+.Next7Days .day .name {
+    font-weight: bold;
+    font-size: 1rem;
+}
+.Next7Days .day .total-todos { /* This is for each of the todo components for each respective weekday*/
+    margin-left: 10px;
+}
