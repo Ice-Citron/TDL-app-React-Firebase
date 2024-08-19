@@ -13,7 +13,11 @@ function Projects() {
 
     // CONTEXT
     const { projects } = useContext(TodoContext)                // useContext() is a hook that allows you to use the values of the context in your components
-
+                                                        // it seems to be since this is a ever changing global data. By defining upstream, or inside hooks directory, which
+                                                        // is then subsequently linked to the context, it allows for the data from firebase to be used here for example,
+                                                        // very convenient, wihout having to pass props down manually at every level too.
+                                                                // and since useEffect({}, []) enables the data to be continuously refreshed. Once the data is retrieved whenever
+                                                                // a change is made. Then we just pass the props data down to each project like before!
     return (
         <div className='Projects'>
             <div className="header">

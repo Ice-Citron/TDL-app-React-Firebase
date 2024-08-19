@@ -27,7 +27,7 @@ export function useTodos(){
             console.log("Full error object:", JSON.stringify(error, null, 2));
         });
         return () => unsubscribe()
-    }, [])
+    }, [fireDB, todosRef]) // includes fireDB too, so that when there's changes made to fireDB, this function is called
 
     return todos
 }
@@ -59,7 +59,7 @@ export function useProjects(todos){
             setProjects(data)
         });
         return () => unsubscribe()
-    }, [])
+    }, [fireDB, projectsRef, todos]) // includes fireDB too, so that when there's changes made to fireDB, this function is called
 
     return projects
 }

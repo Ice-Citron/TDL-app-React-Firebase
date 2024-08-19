@@ -26,7 +26,7 @@ function Todo({todo}){
                 </div>
                 <div className="text">
                     <p style={{color : todo.checked ? '#bebebe' : '#000000'}}>{todo.text}</p> {/* if todo.checked is true, renders text color as gray, else black */}
-                    <span>{todo.time} - {todo.project}</span>                                 {/* renders time and project, for example "09:00 AM - work"         */}          
+                    <span>{todo.time} - {todo.projectName}</span>                             {/* renders time and project, for example "09:00 AM - work"         */}          
                     <div className={`line ${todo.checked ? 'line-through' : ''}`}></div>      {/* if todo.checked is true, render a line-through class, else empty <-- this is based on css definition. If todo object is
                                                                                                   checked, the className will become "line line-through" instead, which hence it will also be using properties defined for
                                                                                                   both ".line" and ".line-through", and since ".line-through" modifies the 1 gray pixel's width from 1 to 100, a line is
