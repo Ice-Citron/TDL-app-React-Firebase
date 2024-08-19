@@ -5,9 +5,9 @@ import { collection, onSnapshot } from 'firebase/firestore' // this needs to be 
 
 
 export function useTodos(){
-    const [todos, setTodos] = useState([])
+    const [todos, setTodos] = useState([]);
 
-    const todosRef = collection(fireDB, "todos")
+    const todosRef = collection(fireDB, "todos");
 
     useEffect(() => {
         // CHANGED --> firebase.firestore() no longer valid as an operation
@@ -18,28 +18,23 @@ export function useTodos(){
                     ...doc.data()
                 }
             })
-            setTodos(data)
-        }, 
-        (error) => {
-            console.error("Error fetching todos:", error);
-            console.log("Error code:", error.code);
-            console.log("Error message:", error.message);
-            console.log("Full error object:", JSON.stringify(error, null, 2));
+            console.log("Subscribe to Todos");
+            setTodos(data);
         });
-        return () => unsubscribe()
-    }, [fireDB, todosRef]) // includes fireDB too, so that when there's changes made to fireDB, this function is called
+        return () => unsubscribe();
+    }, []); // includes fireDB too, so that when there's changes made to fireDB, this function is called
 
-    return todos
+    return todos;
 }
 
 export function useProjects(todos){
-    const [projects, setProjects] = useState([])
+    const [projects, setProjects] = useState([]);
 
     function calculateNumOfTodos(projectName, todos){
-        return todos.filter( todo => todo.projectName === projectName).length
+        return todos.filter( todo => todo.projectName === projectName).length;
     }
 
-    const projectsRef = collection(fireDB, "projects")
+    const projectsRef = collection(fireDB, "projects");
 
     useEffect(() => {
         // CHANGED --> firebase.firestore() no longer valid as an operation
@@ -48,7 +43,7 @@ export function useProjects(todos){
         // need to check and note down why is "let" used instead of "const"
         const unsubscribe = onSnapshot(projectsRef, (snapshot) => {
             const data = snapshot.docs.map( doc => {
-                const projectName = doc.data().name
+                const projectName = doc.data().name;
 
                 return {
                     id : doc.id,
@@ -56,10 +51,40 @@ export function useProjects(todos){
                     numOfTodos : calculateNumOfTodos(projectName, todos)
                 }
             })
-            setProjects(data)
+            setProjects(data);
+            console.log("Subscribe to Projects");
+        });
+        return () => unsubscribe();
+    }, []); // includes fireDB too, so that when there's changes made to fireDB, this function is called
+
+    return projects;
+}
+
+
+
+
+
+
+
+// ARCHIVE <-- TO SHOW WHAT CAN USEEFFECT'S 2ND ARGUMENT DO
+
+/*
+    useEffect(() => {
+        // CHANGED --> firebase.firestore() no longer valid as an operation
+        let unsubscribe = onSnapshot(todosRef, (snapshot) => {
+            const data = snapshot.docs.map( doc => {
+                return {
+                    id : doc.id,
+                    ...doc.data()
+                }
+            })
+            console.log("Subscribe")
+            setTodos(data)
+        }, 
+        (error) => {
+            console.log("Effect Called")
         });
         return () => unsubscribe()
-    }, [fireDB, projectsRef, todos]) // includes fireDB too, so that when there's changes made to fireDB, this function is called
+    }, [fireDB, todosRef]) // includes fireDB too, so that when there's changes made to fireDB, this function is called
 
-    return projects
-}
+*/ 
