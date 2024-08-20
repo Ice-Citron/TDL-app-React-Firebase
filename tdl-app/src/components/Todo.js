@@ -9,11 +9,14 @@ function Todo({todo}){
     const [hover, setHover] = useState(false) // useState is used here // static variable and a setter function, intialised to false
 
     // CHANGED, to redress  for Firebase v9+
-    const deleteTodo = async (todo) => {
+            // Constant variable which stores a function
+            // async (todo) => {...} -- By initialising the function in this manner, it marks it as "async". Meaning it will handle asynchronous operations, using "await"
+            //                          This function takes one arg "todo"
+    const deleteTodo = async (todo) => { 
         try {
             const todosRef = collection(fireDB, 'todos');
             const todoDoc = doc(todosRef, todo.id);
-            await deleteDoc(todoDoc);
+            await deleteDoc(todoDoc); // await keyword is used to pause the execution of the function until "deleteDoc()" 's operation completes
             console.log('Todo deleted successfully');
         } 
         catch (error) {

@@ -23,3 +23,4 @@
 ---
 20/8/2024
 - Firebase - P20 Preventing Default Form Submission in React = https://claude.ai/chat/5b97a559-925a-4e52-b0ec-7ff7f6de4ca9
+- Firebase - Understanding Async in React = https://chatgpt.com/c/49f6afdc-fa37-40f6-8a77-ad092cdc9e50
