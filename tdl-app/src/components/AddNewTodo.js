@@ -42,8 +42,10 @@ function AddNewTodo(){
 
             setShowModal(false)
             setText('')
-            setDay(new Date())
-            setTime(new Date())
+            setDay(new dayjs().startOf('day'))
+            setTime(new dayjs().startOf('minute')) // fixed problem of invalid date format. Need to re-create date using original values as seen with state intialisation values here,
+                                                   // the purpose is to ensure that the default date and time is reset to the current date and time, after the form is submitted (which their
+                                                   // respective values were modified at this stage)
         }
     }
 

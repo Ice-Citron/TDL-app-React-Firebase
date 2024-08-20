@@ -1,9 +1,26 @@
 import React, {useState} from 'react' // useState is a Hook that allows you to have state variables in functional components (true or false)
 import { ArrowClockwise, CheckCircleFill, Circle, Trash } from 'react-bootstrap-icons'
 
+import fireDB from "../firebase";
+import { collection, doc, deleteDoc } from "firebase/firestore";
+
 
 function Todo({todo}){
     const [hover, setHover] = useState(false) // useState is used here // static variable and a setter function, intialised to false
+
+    // CHANGED, to redress  for Firebase v9+
+    const deleteTodo = async (todo) => {
+        try {
+            const todosRef = collection(fireDB, 'todos');
+            const todoDoc = doc(todosRef, todo.id);
+            await deleteDoc(todoDoc);
+            console.log('Todo deleted successfully');
+        } 
+        catch (error) {
+            console.error('Error deleting todo:', error);
+        }
+    };
+
 
     return ( // this is for each Todo object!
         <div className='Todo'>
@@ -40,7 +57,7 @@ function Todo({todo}){
                         </span>
                     }
                 </div>
-                <div className="delete-todo">
+                <div className="delete-todo" onClick={ () => deleteTodo(todo) }>
                     {
                         (hover || todo.checked) && // Show the trash icon is todo is checked or {if unchecked, render the icon (if the mouse is hovering over the todo-container)}
                         <span>

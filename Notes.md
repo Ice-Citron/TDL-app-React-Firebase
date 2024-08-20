@@ -19,3 +19,7 @@
 19/8/2024
 - Firebase - Converting Day.js Dates for Firebase in React = https://claude.ai/chat/b6b27dec-9597-4755-bf5c-581812caf582
 - Firebase - Finding the URL of your Firebase-hosted app = https://claude.ai/chat/f1fa15b1-17b3-4356-9119-ab2cac0b8b84
+- Firebase - Updating Outdated Date Library in React App = https://claude.ai/chat/73b59b1e-9301-41fa-afb7-162012e4d736
+---
+20/8/2024
+- Firebase - P20 Preventing Default Form Submission in React = https://claude.ai/chat/5b97a559-925a-4e52-b0ec-7ff7f6de4ca9

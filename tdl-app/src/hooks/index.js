@@ -53,7 +53,7 @@ export function useProjects(todos){
                 }
             })
             setProjects(data);
-            console.log("Subscribe to Todos");
+            console.log("Subscribe to Projects");
         });
         return () => unsubscribe();
     }, []); // includes fireDB too, so that when there's changes made to fireDB, this function is called
