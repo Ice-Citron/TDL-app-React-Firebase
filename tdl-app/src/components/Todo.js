@@ -1,5 +1,7 @@
 import React, {useState, useContext} from 'react' // useState is a Hook that allows you to have state variables in functional components (true or false)
+import { useSpring, useTransition, animated } from "react-spring"
 import { ArrowClockwise, CheckCircleFill, Circle, Trash } from 'react-bootstrap-icons'
+
 import fireDB from "../firebase";
 import { collection, doc, deleteDoc, updateDoc, addDoc } from "firebase/firestore";
 import dayjs from "dayjs";
@@ -76,9 +78,21 @@ function Todo({todo}){
         }
     };
 
+    // ANIMATION
+    const fadeIn = useSpring({
+        from : { marginTop : '-12px', opacity : 0 },
+        to : { marginTop : '0px', opacity : 1}
+    })
+
+    const checkTransitions = useTransition(todo.checked, {
+        from : { position : 'absolute', transform : 'scale(0)' },
+        enter : { transform : 'scale(1)' },
+        leave : { transform : 'scale(0)' }
+    })
+
 
     return ( // this is for each Todo object!
-        <div className='Todo'>
+        <animated.div className="Todo" style={fadeIn}>{/*<div className='Todo'></div>*/}
             <div
                 className="todo-container"
                 onMouseEnter={() => setHover(true)}         // These sets the hover state to true when the mouse hovers over/enters the todo-container
@@ -86,14 +100,16 @@ function Todo({todo}){
             >
                 <div className="check-todo" onClick={ () => checkTodo(todo) }>
                     {
-                        todo.checked ?  // ternary operator checks if todo.checked is true or false // if true, render a GRAY checked circle, else render a colored unchecked circle (which is based on value in array)
-                            <span className="checked">
-                                <CheckCircleFill color="#bebebe" />
-                            </span>
-                        :
-                            <span className="unchecked">
-                                <Circle color={todo.color} />
-                            </span>
+                        checkTransitions((props, checked) =>
+                            checked ?  // ternary operator checks if todo.checked is true or false // if true, render a GRAY checked circle, else render a colored unchecked circle (which is based on value in array)
+                                <animated.span className="checked" style={props}>           {/* DEFAULT --> <span className="checked"></span>*/}
+                                    <CheckCircleFill color="#bebebe" />
+                                </animated.span>
+                            :
+                                <animated.span className="unchecked" style={props}>         {/*<span className="unchecked"></span>*/}
+                                    <Circle color={todo.color} />
+                                </animated.span>
+                        )
                     }
                 </div>
                 <div className="text" onClick={ () => setSelectedTodo(todo) }>           {/*now seems to be just by pressing the entire box alone, you get to select the current "selectedTodo*/}
@@ -121,7 +137,7 @@ function Todo({todo}){
                     }
                 </div>
             </div>
-        </div>
+        </animated.div>
     )
 }
 

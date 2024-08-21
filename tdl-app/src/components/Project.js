@@ -1,5 +1,6 @@
 import { React, useState, useContext } from "react"
 import { Pencil, XCircle } from 'react-bootstrap-icons'
+import { useSpring, useTransition, animated } from "react-spring"
 
 import Modal from './Modal'
 import RenameProject from "./RenameProject"
@@ -48,37 +49,50 @@ function Project({ project, edit }) {
         }
     };
 
+    // ANIMATION
+    const fadeIn = useSpring({
+        from : { marginTop : '-12px', opacity : 0 },
+        to : { marginTop : '0px', opacity : 1}
+    })
+    const btnTransitions = useTransition(edit, {
+        from : { opacity : 0, right : '-20px' },
+        enter : { opacity : 1, right : '0px' },
+        leave : { opacity : 0, right : '-20px' }
+    })
+
 
     return (
-        <div className='Project'>
+        <animated.div className="Project" style={fadeIn}>                           {/* DEFAULT --> <div className='Project'></div>*/}
             <div className="name" onClick={ () => setSelectedProject(project.name) }>
                 {project.name}
             </div>
             <div className="btns">
                 {
-                    edit ?          // conditional operator, akin to C/C++ ! :)
-                        // <span>s here are used to contain these icons, which will be made to buttons soon
-                        <div className="edit-delete">
-                            <span className="edit" onClick={ () => setShowModal(true)}> {/* When span is clicked, the modal will be shown */}
-                                <Pencil size="13" />
-                            </span>
-                            <span className="delete" onClick={ () => deleteProject(project) }>
-                                <XCircle size="13" />
-                            </span>
-                        </div>
-                    : 
-                        project.numOfTodos === 0 ? // don't display the number of ToDos if there are none
-                            ""
-                        :                          // else, display the number of ToDos inside a <div>
-                            <div className="total-todos">
-                                {project.numOfTodos}
-                            </div>
+                    btnTransitions((props, editProject) =>
+                        editProject ?          // conditional operator, akin to C/C++ ! :)
+                            // <span>s here are used to contain these icons, which will be made to buttons soon
+                            <animated.div className="edit-delete" style={props}>                        {/* DEFAULT --> <div className="edit-delete"><div/>*/}
+                                <span className="edit" onClick={ () => setShowModal(true)}>             {/* When span is clicked, the modal will be shown */}
+                                    <Pencil size="13" />
+                                </span>
+                                <span className="delete" onClick={ () => deleteProject(project) }>
+                                    <XCircle size="13" />
+                                </span>
+                            </animated.div>
+                        : 
+                            project.numOfTodos === 0 ? // don't display the number of ToDos if there are none
+                                ""
+                            :                          // else, display the number of ToDos inside a <div>
+                                <animated.div className="total-todos" style={props}>{/* DEFAULT --> <div className="total-todos"></div> */}
+                                    {project.numOfTodos}
+                                </animated.div> 
+                    )
                 }
             </div>
             <Modal showModal={showModal} setShowModal={setShowModal}>
                 <RenameProject project={project} setShowModal={setShowModal}/>
             </Modal>
-        </div>
+        </animated.div>
     )
 }
 

@@ -333,7 +333,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 300ms ease-in-out;    /* Refer to notes for how transition property works */    
+    transition: all 300ms ease-in-out;    /* Refer to notes for how transition property works */
 }
 .Project .btns .edit-delete span.edit:hover {    /* Hover effect for edit button, in this case, changes colour to green for "PENCIL" icon */
     background: #acffac;
@@ -437,6 +437,12 @@
 .Todo .todo-container {
     display: flex;
     align-items: center;        /* This sets the container to use flexbox layout and aligns items vertically in the center. */
+}
+.Todo .todo-container .check-todo {
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    width: 15px;
 }
 .Todo .todo-container span {
     cursor: pointer;            /* This changes the cursor to a pointer when hovering over the span. */
