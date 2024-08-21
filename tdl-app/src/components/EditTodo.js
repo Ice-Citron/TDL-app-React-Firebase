@@ -50,7 +50,7 @@ function EditTodo(){
     
             updateTodo();
         }
-    }, [text, day, time, todoProject]);
+    }, [text, day, time, todoProject]); // whenever these component changes (which are props available to be changed from the EditTodo component rendered in GUI), the useEffect hook will run
 
     function handleSubmit(e) {}
 
