@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react'
-import { useTodos, useProjects, useFilterTodos } from '../hooks'
+import { useTodos, useProjects, useProjectsWithStats, useFilterTodos } from '../hooks'
 
 
 const TodoContext = createContext()
@@ -10,16 +10,18 @@ function TodoContextProvider({children}){
 
     const todos = useTodos()
     const projects = useProjects(todos)
+    const projectsWithStats = useProjectsWithStats(projects, todos)
     const filteredTodos = useFilterTodos(todos, selectedProject) // new addition, basically just acts as filtering function for base todos array, before passing it into context to be used globally as global data
                                                                  // it uses the filter() function conditionally to filter out todos based on the selectedProject
     return (
         <TodoContext.Provider
             value={
                 {
+                    defaultProject: defaultProject,
                     selectedProject: selectedProject,
                     setSelectedProject: setSelectedProject,
                     todos: filteredTodos,
-                    projects: projects
+                    projects: projectsWithStats
                 }
             }
         >

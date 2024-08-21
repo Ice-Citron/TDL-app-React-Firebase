@@ -1,12 +1,13 @@
-import { useState, useEffect } from 'react'
-
+import { useState, useEffect, useMemo } from 'react'
 import fireDB from '../firebase' // CHANGED --> firebase.firestore() no longer valid as an operation
 import { collection, onSnapshot } from 'firebase/firestore' // this needs to be added, since we are using newer version of firebase
 import dayjs from 'dayjs'
 
 
 export function useTodos(){
+    // STATE
     const [todos, setTodos] = useState([]);
+
 
     const todosRef = collection(fireDB, "todos");
 
@@ -28,6 +29,7 @@ export function useTodos(){
     return todos;
 }
 
+// CHANGED - to redress for Firebase v9+
 export function useProjects(todos){
     const [projects, setProjects] = useState([]);
 
@@ -97,8 +99,30 @@ export function useFilterTodos(todos, selectedProject){         // function is e
     return filteredTodos
 }
 
+export function useProjectsWithStats(projects, todos) {
+    const [projectsWithStats, setProjectsWithStats] = useState([]);
 
+    const todoCountByProject = useMemo(() => {
+        return todos.reduce((acc, todo) => {    
+            // reduce() method reduces an array to a single value. It takes 2 parameter here, accumulator "acc" and the current value "todo"
+                // reduce() seems to be idea when trying to aggregate data into a single output from array; which makes sense, since here, we are trying to sum all the todos objects based on their projectNames
+                // since we are trying to find the "todoCount" for each Project.
+            if (!todo.checked) { acc[todo.projectName] = (acc[todo.projectName] || 0) + 1; }
+            return acc;
+        }, {}); // empty {} serves as the initial value of the accumulator "acc" (an empty object). As "reduce" iterates over the array, it builds this object by adding properties where
+                // (in this case) each property key is a project name, and the value is the summed count of unchecked todos for each respective project.
+    }, [todos]);// indicates this useMemo() function will only be called when "todos" changes
 
+    useEffect(() => {
+        const data = projects.map((project) => ({
+            ...project,
+            numOfTodos: todoCountByProject[project.name] || 0 // if not in the todoCountByProject object (which means no todos), then default to 0
+        }));
+        setProjectsWithStats(data);
+    }, [projects, todoCountByProject]);
+
+    return projectsWithStats;
+}
 
 
 

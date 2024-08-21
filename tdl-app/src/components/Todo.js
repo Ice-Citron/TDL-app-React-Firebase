@@ -1,8 +1,8 @@
 import React, {useState} from 'react' // useState is a Hook that allows you to have state variables in functional components (true or false)
 import { ArrowClockwise, CheckCircleFill, Circle, Trash } from 'react-bootstrap-icons'
-
 import fireDB from "../firebase";
-import { collection, doc, deleteDoc } from "firebase/firestore";
+import { collection, doc, deleteDoc, updateDoc, addDoc } from "firebase/firestore";
+import dayjs from "dayjs";
 
 
 function Todo({todo}){
@@ -24,6 +24,46 @@ function Todo({todo}){
         }
     };
 
+    // CHANGED, to redress  for Firebase v9+
+    const checkTodo = async (todo) => {
+        const todosRef = collection(fireDB, 'todos');
+    
+        try {
+            const todoDocRef = doc(todosRef, todo.id);
+            await updateDoc(todoDocRef, { checked: !todo.checked }); // !todo.checked just sets the "checked" boolean to opposite of what it was
+            console.log('Todo checked/unchecked successfully');
+        } 
+        catch (error) {
+            console.error('Error updating todo:', error);
+        }
+    };
+
+    // CHANGED, to redress  for Firebase v9+
+    const repeatNextDay = async (todo) => {
+        const todosRef = collection(fireDB, 'todos');
+    
+        try {
+            const nextDayDate = dayjs(todo.date, 'MM/DD/YYYY').add(1, 'day');
+            
+            // Since this function is supposed to repeat a Todo task, or basically, the same exact task with its content is repeated, except for the due date which is changed to the next day
+                        // this means that we are just copying the new object, except for giving it a new ID (by deleting old ID), and changing its "date" and "day" property
+            const repeatedTodo = {
+                ...todo,
+                checked: false,
+                date: nextDayDate.format('MM/DD/YYYY'),
+                day: nextDayDate.format('d')
+            };
+    
+            delete repeatedTodo.id;
+    
+            const newTodoRef = await addDoc(todosRef, repeatedTodo);
+            console.log('Todo repeated for next day successfully', newTodoRef.id);
+        } 
+        catch (error) {
+            console.error('Error repeating todo:', error);
+        }
+    };
+
 
     return ( // this is for each Todo object!
         <div className='Todo'>
@@ -32,7 +72,7 @@ function Todo({todo}){
                 onMouseEnter={() => setHover(true)}         // These sets the hover state to true when the mouse hovers over/enters the todo-container
                 onMouseLeave={() => setHover(false)}        // and false when it leaves
             >
-                <div className="check-todo">
+                <div className="check-todo" onClick={ () => checkTodo(todo) }>
                     {
                         todo.checked ?  // ternary operator checks if todo.checked is true or false // if true, render a GRAY checked circle, else render a colored unchecked circle (which is based on value in array)
                             <span className="checked">
@@ -52,7 +92,7 @@ function Todo({todo}){
                                                                                                   both ".line" and ".line-through", and since ".line-through" modifies the 1 gray pixel's width from 1 to 100, a line is
                                                                                                   formed! */}
                 </div>
-                <div className="add-to-next-day">
+                <div className="add-to-next-day" onClick={ () => repeatNextDay(todo) }>
                     {
                         todo.checked && // Shows the refresh icon (clockwise arrow) only if the todo is checked (or task already completed. Which means to add the same task at same time but different date (next day))
                         <span>
