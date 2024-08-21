@@ -1,12 +1,26 @@
-import React, {useState} from 'react' // useState is a Hook that allows you to have state variables in functional components (true or false)
+import React, {useState, useContext} from 'react' // useState is a Hook that allows you to have state variables in functional components (true or false)
 import { ArrowClockwise, CheckCircleFill, Circle, Trash } from 'react-bootstrap-icons'
 import fireDB from "../firebase";
 import { collection, doc, deleteDoc, updateDoc, addDoc } from "firebase/firestore";
 import dayjs from "dayjs";
 
+import { TodoContext } from '../context'
+
 
 function Todo({todo}){
+    // STATE
     const [hover, setHover] = useState(false) // useState is used here // static variable and a setter function, intialised to false
+
+    // CONTEXT
+    const { selectedTodo, setSelectedTodo } = useContext(TodoContext)
+
+    const handleDelete = (todo) => {
+        deleteTodo(todo)
+
+        if (selectedTodo == todo) {
+            setSelectedTodo(undefined) // if after deletion, the currently selected todo is the one being deleted, then set the selectedTodo to undefined (default value in a way)
+        }
+    }
 
     // CHANGED, to redress  for Firebase v9+
             // Constant variable which stores a function
@@ -84,7 +98,7 @@ function Todo({todo}){
                             </span>
                     }
                 </div>
-                <div className="text">
+                <div className="text" onClick={ () => setSelectedTodo(todo) }>           {/*now seems to be just by pressing the entire box alone, you get to select the current "selectedTodo*/}
                     <p style={{color : todo.checked ? '#bebebe' : '#000000'}}>{todo.text}</p> {/* if todo.checked is true, renders text color as gray, else black */}
                     <span>{todo.time} - {todo.projectName}</span>                             {/* renders time and project, for example "09:00 AM - work"         */}          
                     <div className={`line ${todo.checked ? 'line-through' : ''}`}></div>      {/* if todo.checked is true, render a line-through class, else empty <-- this is based on css definition. If todo object is

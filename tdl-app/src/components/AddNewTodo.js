@@ -20,8 +20,8 @@ function AddNewTodo(){
             // setShowModal = function that will be used to update the state of "showModal"
     const [showModal, setShowModal] = useState(false);
     const [text, setText] = useState('');                                   // new, from part 6
-    const [day, setDay] = React.useState(new dayjs().startOf('day'));       // using .startOf('day') to set the time to 00:00:00 // this also chooses today for date by default
-    const [time, setTime] = React.useState(new dayjs().startOf('minute'));  // this chooses the current time, to the current minute by default
+    const [day, setDay] = useState(new dayjs().startOf('day'));             // using .startOf('day') to set the time to 00:00:00 // this also chooses today for date by default
+    const [time, setTime] = useState(new dayjs().startOf('minute'));        // this chooses the current time, to the current minute by default
     const [todoProject, setTodoProject] = useState(selectedProject);        // from part 14, NEW, for useEffect hook   
 
     function handleSubmit(e) {
