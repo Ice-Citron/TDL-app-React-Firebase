@@ -16,10 +16,8 @@ function Todo({todo}){
 
     const handleDelete = (todo) => {
         deleteTodo(todo)
-
-        if (selectedTodo == todo) {
-            setSelectedTodo(undefined) // if after deletion, the currently selected todo is the one being deleted, then set the selectedTodo to undefined (default value in a way)
-        }
+        // if after deletion, the currently selected todo is the one being deleted, then set the selectedTodo to undefined (default value in a way)
+        if (selectedTodo === todo) { setSelectedTodo(undefined) }
     }
 
     // CHANGED, to redress  for Firebase v9+
@@ -114,7 +112,7 @@ function Todo({todo}){
                         </span>
                     }
                 </div>
-                <div className="delete-todo" onClick={ () => deleteTodo(todo) }>
+                <div className="delete-todo" onClick={ () => handleDelete(todo) }>
                     {
                         (hover || todo.checked) && // Show the trash icon is todo is checked or {if unchecked, render the icon (if the mouse is hovering over the todo-container)}
                         <span>

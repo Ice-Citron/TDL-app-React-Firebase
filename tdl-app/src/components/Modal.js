@@ -1,4 +1,5 @@
 import React, {useRef} from 'react'
+import { useSpring, animated } from "react-spring"
 
 
 function Modal({children, showModal, setShowModal}) {
@@ -15,6 +16,13 @@ function Modal({children, showModal, setShowModal}) {
             setShowModal(false) // i think it means just clicking outside of the div
         }
     }
+
+    // ANIMATION
+    const modalAnimation = useSpring({ // NEED TO FIGURE OUT WHAT IS THIS DOING HERE
+        opacity : showModal ? 1 : 0,
+        top : showModal ? '25%' : '0%',
+        config : { friction : 10 }
+    })
     
     return (
         showModal && // conditional rendering statement. The modal and its contents will only render if "showModal" is true.
@@ -26,9 +34,11 @@ function Modal({children, showModal, setShowModal}) {
         {/* CHECK NOTES ONCE AGAIN BUT:
             onClick attribute is an event handler which listens for click eevnts on the element it is applied to (buttons, div or any clickable element---div in this
             case). When a function is specified for onClick={closeModal}, this function---closeModal is called everytime a click is detected. A event listener basically. */}
-            <div className="container">
+            
+            { /* DEFAULT USED PREVIOUSLY ---> <div className="container"></div> */}
+            <animated.div style={modalAnimation} className="container">
                 {children}
-            </div>
+            </animated.div>
         </div>
     )
 }

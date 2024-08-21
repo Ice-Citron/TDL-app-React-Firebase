@@ -1,5 +1,6 @@
 import React, {useState, useContext} from "react"
 import { CaretUp, Palette, PencilFill } from 'react-bootstrap-icons'
+import { useSpring, animated } from "react-spring"
 
 import AddNewProject from "./AddNewProject"
 import Project from "./Project"
@@ -18,6 +19,17 @@ function Projects() {
                                                         // very convenient, wihout having to pass props down manually at every level too.
                                                                 // and since useEffect({}, []) enables the data to be continuously refreshed. Once the data is retrieved whenever
                                                                 // a change is made. Then we just pass the props data down to each project like before!
+    // ANIMATION
+    const spin = useSpring({
+        transform : showMenu ? 'rotate(0deg)' : 'rotate(180deg)',
+        config : { friction : 10 }
+    })
+
+    const menuAnimation = useSpring({
+        display : showMenu ? 'block' : 'none',
+        lineHeight : showMenu ? 1.2 : 0
+    })
+
     return (
         <div className='Projects'>
             <div className="header">
@@ -33,12 +45,12 @@ function Projects() {
                         </span>
                     }
                     <AddNewProject />
-                    <span className='arrow'>
+                    <animated.span className="arrow" onClick={() => setShowMenu(!showMenu)} style={spin}>            {/* DEFAULT --> <span className='arrow'></span>*/}
                         <CaretUp size="20" />
-                    </span>
+                    </animated.span>
                 </div>
             </div>
-            <div className="items">
+            <animated.div className="items" style={menuAnimation}>                          {/* DEFAULT --> <div className="items"></div> */}
                 {
                     projects.map( project =>  // array.map() in action. Key is used to uniquely identify each element in the array, like previously, needed so that React can keep track of each element in the array
                                               // so there's no risk of re-rendering the same element twice
@@ -52,7 +64,7 @@ function Projects() {
                             // re-rendering the same element twice
                     )
                 }
-            </div>
+            </animated.div>
         </div>
     )
 }
